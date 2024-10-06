@@ -9,7 +9,7 @@ lint:
 	ruff check *.py 
 	
 test:
-	python -m pytest -vv tests/test_*.py 
+	python -m pytest -vv test_files/test_*.py 
 
 check:
 	python main.py

@@ -5,8 +5,8 @@ import csv
 import os
 
 
-# Load the CSV file and insert it into a new SQLite3 database
-def load(
+# Loads the CSV file and transforms it into a new SQLite3 database
+def transform(
     dataset="data/nypd_shooting.csv",
     db_name="nypd_shooting.db",
     table_name="nypd_shooting",
@@ -83,4 +83,4 @@ def load(
 
 
 if __name__ == "__main__":
-    load()
+    transform()
