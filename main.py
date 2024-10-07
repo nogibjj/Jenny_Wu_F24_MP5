@@ -6,7 +6,7 @@ from preprocess_SQL_files.query_data import (
     query_update,
     query_delete,
     query_1,
-    query_2
+    query_2,
 )
 
 extract()

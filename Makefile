@@ -3,13 +3,13 @@ install:
 		pip install -r requirements.txt
 
 format:
-	black *.py
+	black *.py test_files/test_*.py preprocess_SQL_files/*.py
 
 lint:
-	ruff check *.py 
+	ruff check *.py test_files/test_*.py preprocess_SQL_files/*.py
 	
 test:
-	python -m pytest -vv test_files/test_*.py 
+	python -m pytest -vv *.py test_files/test_*.py preprocess_SQL_files/*.py
 
 check:
 	python main.py

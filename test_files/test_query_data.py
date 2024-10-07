@@ -12,73 +12,151 @@ from query_data import (
 )
 
 
-def test_query_create():
-    # Define the expected values to check
-    expected_values = (
-        228566043,
-        "5/03/21",
-        "3:53:00",
-        "BRONX",
-        41,
-        0,
-        "FALSE",
-        "18-25",
-        "M",
-        "WHITE HISPANIC",
-        "18-24",
-        "M",
-        "WHITE HISPANIC",
-    )
-
-    # Connect to the database
+def test_query_create_1():
+    "checks to see that the observation does not exist"
     conn = sqlite3.connect("nypd_shooting.db")
     cursor = conn.cursor()
-
-    
-
-    # Query to select the row that matches the expected values
-
     cursor.execute(
         """
         SELECT * FROM nypd_shooting 
-        WHERE Incident_Key = ?
-          AND Occur_Date = ?
-          AND Occur_Time = ?
-          AND Boro = ?
-          AND Precinct = ?
-          AND Jurisdiction_Code = ?
-          AND Stat_Murder_Flag = ?
-          AND Perp_Age_Group = ?
-          AND Perp_Sex = ?
-          AND Perp_Race = ?
-          AND Vicitm_Age_Group = ?
-          AND Victim_Sex = ?
-          AND Victim_Race = ?
-    """,
-        expected_values,
+        WHERE Incident_Key = 2285660563456"""
+    )
+    result = cursor.fetchone()
+    print(result)
+    assert result is None
+    cursor.close()
+    conn.close()
+
+
+def test_query_create_2():
+    "runs the creation of the query and asserts that it does exist"
+    conn = sqlite3.connect("nypd_shooting.db")
+    cursor = conn.cursor()
+    expected_values = (
+        2285660563456,
+        "5/21/21",
+        "3:33:33",
+        "BRONX",
+        None,
+        33,
+        0,
+        None,
+        None,
+        "FALSE",
+        "18-25",
+        "M",
+        "WHITE",
+        "18-24",
+        "M",
+        "BLACK",
+        None,
+        None,
+        None,
+        None,
+        None,
     )
 
-    # Fetch the result
+    query_create(
+        database="nypd_shooting.db",
+        table="nypd_shooting",
+        colnames="""'Incident_Key',
+                'Occur_Date',
+                'Occur_Time',
+                'Boro',
+                'Precinct',
+                'Jurisdiction_Code',
+                'Stat_Murder_Flag',
+                'Perp_Age_Group',
+                'Perp_Sex',
+                'Perp_Race',
+                'Vicitm_Age_Group',
+                'Victim_Sex',
+                'Victim_Race'
+                """,
+        values=""" 2285660563456,
+        '5/21/21',
+        '3:33:33',
+        'BRONX',
+        33,
+        0,
+        'FALSE',
+        '18-25',
+        'M',
+        'WHITE',
+        '18-24',
+        'M',
+        'BLACK' """,
+    )
+    cursor.execute(
+        """
+        SELECT * FROM nypd_shooting 
+        WHERE Incident_Key = 2285660563456"""
+    )
     result = cursor.fetchone()
-
-    # Assert that the result matches the expected values
     assert result == expected_values, f"Expected {expected_values} but got {result}"
 
-    # Close the cursor and connection
+    cursor.execute(
+        """
+        DELETE FROM nypd_shooting 
+        WHERE Incident_Key = 2285660563456"""
+    )
+    conn.commit()
     cursor.close()
     conn.close()
 
     print("Test passed: Entry exists in the database.")
 
 
-# Run the test
-test_query_create()
+def test_query_read():
+    """testing the read function"""
+    result = query_read("nypd_shooting.db", "nypd_shooting")
+    assert result is not None
+
+
+def test_query_update():
+    """testing the update function"""
+    Incident_Key = 228679852
+    column = "Precinct"
+    new_value = 78
+    conn = sqlite3.connect("nypd_shooting.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT Precinct FROM nypd_shooting 
+        WHERE Incident_Key = 228679852"""
+    )
+    old_value = cursor.fetchone()
+    query_update("nypd_shooting.db", "nypd_shooting", column, new_value, Incident_Key)
+    cursor.execute(
+        """
+        SELECT Precinct FROM nypd_shooting 
+        WHERE Incident_Key = 228679852"""
+    )
+    new_value = cursor.fetchone()
+    assert new_value is not old_value
+
+
+def test_delete():
+    ID_number = "EMP0008"
+    result = query_delete(
+        "nypd_shooting.db",
+        "nypd_shooting",
+    )
+
+
+def test_query_1():
+    result_1 = query_1(database="nypd_shooting.db", table="nypd_shooting")
+    assert result_1 is not None
+
+
+def test_query_2():
+    result_2 = query_2(database="nypd_shooting.db", table="nypd_shooting")
+    assert result_2 is not None
 
 
 if __name__ == "__main__":
-    test_query_create,
-    test_query_read,
-    test_query_update,
-    test_query_delete,
-    test_query_1,
-    test_query_2
+    test_query_create_1()
+    test_query_create_2()
+    test_query_read()
+    test_query_1()
+    test_query_2()

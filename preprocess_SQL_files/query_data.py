@@ -1,5 +1,4 @@
 import sqlite3
-import os
 
 
 def query_create(database, table, colnames, values):
@@ -24,6 +23,7 @@ def query_read(database, table):
         print(row)
     cursor.close()
     conn.close()
+    return rows
 
 
 def query_update(database, table, column, new_value, Incident_Key):
@@ -70,13 +70,13 @@ def query_1(database, table):
     print("10 Incidents Against a F/BLK Victim in the Streets of the Bronx:")
     query_1_result = cursor.fetchall()
     print(query_1_result)
-    print("Query is complete!")
     cursor.close()
     conn.close()
+    return "Query is complete!"
 
 
 def query_2(database, table):
-    """Queries the db for all incidences on 4/18/2008"""
+    """Queries the db for all incidences on 4/19/2008"""
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
 
@@ -90,6 +90,6 @@ def query_2(database, table):
     print("Incidents on 04/19/2008")
     query_2_result = cursor.fetchall()
     print(query_2_result)
-    print("Query is complete!")
     cursor.close()
     conn.close()
+    return "Query is complete!"

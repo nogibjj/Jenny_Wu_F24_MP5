@@ -2,7 +2,6 @@
 # performs the CREATE from CRUD operations
 import sqlite3
 import csv
-import os
 
 
 # Loads the CSV file and transforms it into a new SQLite3 database
@@ -11,9 +10,8 @@ def transform(
     db_name="nypd_shooting.db",
     table_name="nypd_shooting",
 ):
-    """Transforms and Loads data into the local SQLite3 database"""
 
-    print("Current directory:", os.getcwd())
+    """Transforms and Loads data into the local SQLite3 database"""
 
     try:
         # Open the CSV file
