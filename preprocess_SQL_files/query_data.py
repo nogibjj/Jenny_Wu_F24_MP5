@@ -31,7 +31,7 @@ def query_update(database, table, column, new_value, Incident_Key):
     cursor.execute(query, (new_value, Incident_Key))
     affected_rows = cursor.rowcount
     conn.commit()
-    c.close()
+    cursor.close()
     conn.close()
 
     if affected_rows == 0:
@@ -39,11 +39,17 @@ def query_update(database, table, column, new_value, Incident_Key):
     print("Record updated successfully!")
 
 
-def query_delete(database, table, condition):
+def query_delete(database, table, Incident_Key):
     """Deletes a specific column in a row based on incident key"""
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
-    query = f"DELETE FROM {table} WHERE {condition}"
-    cursor.execute(query())
-    return "Success"
+    query = f"DELETE FROM {table} WHERE Incident_Key= ?"
+    cursor.execute(query(Incident_Key))
+    changed_rows = cursor.rowcount
+    conn.commit()
+    cursor.close()
+    conn.close()
 
+    if changed_rows == 0:
+        print("No record found")
+    print("Record deleted successfully!")
