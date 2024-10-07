@@ -1,3 +1,5 @@
+"""This file asserts and tests all of the query functions"""
+
 import sqlite3
 import sys
 
