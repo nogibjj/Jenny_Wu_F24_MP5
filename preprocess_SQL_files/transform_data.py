@@ -73,7 +73,7 @@ def transform(
             # Commit the changes and close the connection
             conn.commit()
             print(f"Data loaded successfully into {table_name} table.")
-
+        c.close()
         conn.close()
 
     except Exception as e:

@@ -1,7 +1,10 @@
 """Asserting that the Data is being extracted from the url"""
 
-from preprocess_SQL_files.extract_data import extract
+import sys
 import os
+
+sys.path.append("preprocess_SQL_files/")
+from extract_data import extract
 
 def test_extract():
     url = "https://data.cityofnewyork.us/api/views/833y-fsy8/rows.csv?accessType=DOWNLOAD"
@@ -10,7 +13,6 @@ def test_extract():
     result = extract()
     assert os.path.exists(result)
     
-    os.remove(result)
 
 
 if __name__ == "__main__":
