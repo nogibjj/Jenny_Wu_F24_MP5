@@ -2,6 +2,7 @@ import sqlite3
 
 """This file sets all of the query functions."""
 
+
 def query_create(database, table, colnames, values):
     """Creates an entry into the specified table"""
     conn = sqlite3.connect(database)
@@ -52,7 +53,7 @@ def query_delete(database, table, Incident_Key):
 
 
 def query_1(database, table):
-    """Queries the db for 10 Incidents Against a F/BLK Victim 
+    """Queries the db for 10 Incidents Against a F/BLK Victim
     in the Streets of the Bronx"""
     conn = sqlite3.connect(database)
     cursor = conn.cursor()

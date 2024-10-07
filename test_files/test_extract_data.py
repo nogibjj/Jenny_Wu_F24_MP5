@@ -1,10 +1,10 @@
-"""Asserting that the Data is being extracted from the url"""
-
 import sys
 import os
 
 sys.path.append("preprocess_SQL_files/")
 from extract_data import extract
+
+"""Asserting that the Data is being extracted from the url"""
 
 
 def test_extract():

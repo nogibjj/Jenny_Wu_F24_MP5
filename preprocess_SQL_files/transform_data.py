@@ -5,7 +5,6 @@ import csv
 # performs the CREATE from CRUD operations
 
 
-
 # Loads the CSV file and transforms it into a new SQLite3 database
 def transform(
     dataset="data/nypd_shooting.csv",
