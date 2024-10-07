@@ -42,3 +42,4 @@ README.md
 requirements.txt
 
 ##### Screenshots of successful database operations
+![alt text](screenshots/successful_tests.png)

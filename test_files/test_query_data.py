@@ -95,11 +95,11 @@ def test_query_create_2():
     result = cursor.fetchone()
     assert result == expected_values, f"Expected {expected_values} but got {result}"
 
-    cursor.execute(
-        """
-        DELETE FROM nypd_shooting 
-        WHERE Incident_Key = 2285660563456"""
-    )
+    # cursor.execute(
+    #     """
+    #     DELETE FROM nypd_shooting
+    #     WHERE Incident_Key = 2285660563456"""
+    # )
     conn.commit()
     cursor.close()
     conn.close()
@@ -115,33 +115,56 @@ def test_query_read():
 
 def test_query_update():
     """testing the update function"""
-    Incident_Key = 228679852
+    Incident_Key = 2285660563456
+
     column = "Precinct"
-    new_value = 78
+    new_value = 35
     conn = sqlite3.connect("nypd_shooting.db")
     cursor = conn.cursor()
     cursor.execute(
         """
         SELECT Precinct FROM nypd_shooting 
-        WHERE Incident_Key = 228679852"""
+        WHERE Incident_Key = 2285660563456"""
     )
     old_value = cursor.fetchone()
     query_update("nypd_shooting.db", "nypd_shooting", column, new_value, Incident_Key)
     cursor.execute(
         """
         SELECT Precinct FROM nypd_shooting 
-        WHERE Incident_Key = 228679852"""
+        WHERE Incident_Key = 2285660563456"""
     )
     new_value = cursor.fetchone()
     assert new_value is not old_value
+    cursor.close()
+    conn.close()
+
+    print(f"Old Value {old_value}, New Value {new_value}")
 
 
 def test_delete():
-    ID_number = "EMP0008"
-    result = query_delete(
-        "nypd_shooting.db",
-        "nypd_shooting",
+    """testing the delete function"""
+    conn = sqlite3.connect("nypd_shooting.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT * FROM nypd_shooting 
+        WHERE Incident_Key = 2285660563456"""
     )
+    presence = cursor.fetchone()
+
+    query_delete("nypd_shooting.db", "nypd_shooting", 2285660563456)
+    cursor.execute(
+        """
+        SELECT * FROM nypd_shooting 
+        WHERE Incident_Key = 2285660563456"""
+    )
+    presence_1 = cursor.fetchone()
+    assert presence_1 is None
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+    print(f"{presence} has been deleted")
 
 
 def test_query_1():
@@ -158,5 +181,7 @@ if __name__ == "__main__":
     test_query_create_1()
     test_query_create_2()
     test_query_read()
+    test_query_update()
+    test_delete()
     test_query_1()
     test_query_2()

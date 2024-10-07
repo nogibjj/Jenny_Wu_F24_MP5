@@ -10,7 +10,6 @@ def transform(
     db_name="nypd_shooting.db",
     table_name="nypd_shooting",
 ):
-
     """Transforms and Loads data into the local SQLite3 database"""
 
     try:
