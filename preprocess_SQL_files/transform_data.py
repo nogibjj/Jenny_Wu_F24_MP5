@@ -1,7 +1,9 @@
-# This file should take the cvs data and convert it into a database, or .db file
-# performs the CREATE from CRUD operations
 import sqlite3
 import csv
+
+# This file should take the cvs data and convert it into a database, or .db file
+# performs the CREATE from CRUD operations
+
 
 
 # Loads the CSV file and transforms it into a new SQLite3 database

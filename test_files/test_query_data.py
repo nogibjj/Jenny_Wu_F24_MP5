@@ -1,7 +1,7 @@
-"""This file asserts and tests all of the query functions"""
-
 import sqlite3
 import sys
+
+"""This file asserts and tests all of the query functions"""
 
 sys.path.append("preprocess_SQL_files/")
 from query_data import (

@@ -1,10 +1,10 @@
+import requests
+
 """
 Extract a dataset from a URL and place it into a database
 
 NYPD Shooting dataset
 """
-
-import requests
 
 
 def extract(
