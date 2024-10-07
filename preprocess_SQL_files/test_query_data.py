@@ -1,5 +1,4 @@
 import sqlite3
-import sys
 
 from query_data import (
     query_create,
@@ -9,7 +8,6 @@ from query_data import (
     query_1,
     query_2,
 )
-
 
 """This file asserts and tests all of the query functions"""
 
