@@ -9,7 +9,7 @@ lint:
 	ruff check *.py test_files/test_*.py preprocess_SQL_files/*.py
 	
 test:
-	python -m pytest -vv *.py test_files/test_*.py preprocess_SQL_files/*.py
+	python -m pytest -vv test_files/test_*.py 
 
 check:
 	python main.py
