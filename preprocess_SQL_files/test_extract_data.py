@@ -1,4 +1,3 @@
-import sys
 import os
 from extract_data import extract
 
