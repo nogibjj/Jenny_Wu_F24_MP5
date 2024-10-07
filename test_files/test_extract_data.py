@@ -1,8 +1,9 @@
 import sys
 import os
+from extract_data import extract
 
 sys.path.append("preprocess_SQL_files/")
-from extract_data import extract
+
 
 """Asserting that the Data is being extracted from the url"""
 

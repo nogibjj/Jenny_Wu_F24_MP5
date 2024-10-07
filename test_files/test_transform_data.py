@@ -1,7 +1,7 @@
 import sys
+from transform_data import transform
 
 sys.path.append("preprocess_SQL_files/")
-from transform_data import transform
 
 """This file takes the csv data and converts it into a database/.db file"""
 
