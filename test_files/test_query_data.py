@@ -1,5 +1,7 @@
 import sqlite3
 import sys
+
+sys.path.append("preprocess_SQL_files/")
 from query_data import (
     query_create,
     query_read,
@@ -9,7 +11,6 @@ from query_data import (
     query_2,
 )
 
-sys.path.append("preprocess_SQL_files/")
 
 """This file asserts and tests all of the query functions"""
 
