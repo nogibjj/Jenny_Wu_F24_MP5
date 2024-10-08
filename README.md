@@ -18,6 +18,7 @@ In this project, I built a pipeline that connects a publicly available CSV to a 
 ---
 ##### Folder Navigation
 Here is a quick overview of how the folders are structured for this project:
+
 .dev container
 - devcontainter.json
 - Dockerfile
@@ -45,3 +46,4 @@ requirements.txt
 
 ##### Screenshots of successful database operations
 ![alt text](screenshots/Picture1.png)
+![alt text](<screenshots/successful queries.png>)
