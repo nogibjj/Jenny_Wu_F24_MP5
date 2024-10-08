@@ -28,15 +28,15 @@ pictures
     - successful_tests.png
 
 preprocess_SQL_files
-        - extract_data.py
-            The code to extract data from the URL is located here.
-        - query_data.py
-            The code to Create, Read, Update, and Delete observations is located here.
-        - transform_data.py
-            The code to pipe the extracted data into a .db is located here. 
-        - test_extract_data.py
-        - test_query_data.py
-        - test_transform_data.py
+- extract_data.py
+    The code to extract data from the URL is located here.
+- query_data.py
+    The code to Create, Read, Update, and Delete observations is located here.
+- transform_data.py
+    The code to pipe the extracted data into a .db is located here. 
+- test_extract_data.py
+- test_query_data.py
+- test_transform_data.py
 main.py
     The code to call the functions is located here. 
 Makefile
