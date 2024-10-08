@@ -1,14 +1,14 @@
 import sys
 import argparse
-from my_lib.extract import extract
-from my_lib.transform import transform_n_load
-from my_lib.crud import (
-    read_data,
-    read_all_data,
-    save_data,
-    delete_data,
-    update_data,
-    get_table_columns,
+from preprocess_SQL_files.extract_data import extract
+from preprocess_SQL_files.transform_data import transform
+from preprocess_SQL_files.query_data import (
+    query_create,
+    query_read,
+    query_update,
+    query_delete,
+    query_1,
+    query_2,
 )
 
 
@@ -19,12 +19,13 @@ def handle_arguments(args):
         "Functions",
         choices=[
             "extract",
-            "transform_n_load",
-            "read_data",
-            "read_all_data",
-            "save_data",
-            "delete_data",
-            "update_data",
+            "transform",
+            "query_create",
+            "query_read",
+            "query_update",
+            "query_delete",
+            "query_1",
+            "query_2",
         ],
     )
 
@@ -32,44 +33,42 @@ def handle_arguments(args):
     print(args.Functions)
     if args.Functions == "extract":
         parser.add_argument("url")
-        parser.add_argument("file_name")
+        parser.add_argument("file_path")
 
-    elif args.Functions == "transform_n_load":
-        parser.add_argument("local_dataset")
-        parser.add_argument("database_name")
-        parser.add_argument("new_data_tables", type=dict)
-        parser.add_argument("new_lookup_tables", type=dict)
-        parser.add_argument("column_attributes", type=dict)
-        parser.add_argument("column_map", type=dict)
-
-    elif args.Functions == "read_data":
-        parser.add_argument("database_name")
-        parser.add_argument("table_name")
-        parser.add_argument("data_id", type=int)
-
-    elif args.Functions == "read_all_data":
-        parser.add_argument("database_name")
+    elif args.Functions == "transform":
+        parser.add_argument("dataset")
+        parser.add_argument("db_name")
         parser.add_argument("table_name")
 
-    elif args.Functions == "save_data":
-        parser.add_argument("database_name")
-        parser.add_argument("table_name")
-        parser.add_argument("row", type=list)
+    elif args.Functions == "query_create":
+        parser.add_argument("dataset")
+        parser.add_argument("table")
+        parser.add_argument("colnames")
+        parser.add_argument("values")
 
-    elif args.Functions == "update_data":
-        parser.add_argument("database_name")
-        parser.add_argument("table_name")
-        parser.add_argument("data_id", type=int)
-        parser.add_argument("things_to_update", type=dict)
+    elif args.Functions == "query_read":
+        parser.add_argument("dataset")
+        parser.add_argument("table")
 
-    elif args.Functions == "delete_data":
+    elif args.Functions == "query_update":
         parser.add_argument("database_name")
-        parser.add_argument("table_name")
-        parser.add_argument("data_id", type=int)
+        parser.add_argument("table")
+        parser.add_argument("column")
+        parser.add_argument("new_value", type=int)
+        parser.add_argument("Incident_Key", type=int)
 
-    elif args.Functions == "get_table_columns":
-        parser.add_argument("database_name")
-        parser.add_argument("table_name")
+    elif args.Functions == "query_delete":
+        parser.add_argument("database")
+        parser.add_argument("table")
+        parser.add_argument("Incident_Key", type=int)
+
+    elif args.Functions == "query_1":
+        parser.add_argument("database")
+        parser.add_argument("table")
+
+    elif args.Functions == "query_2":
+        parser.add_argument("database")
+        parser.add_argument("table")
 
     # parse again
     return parser.parse_args(sys.argv[1:])
@@ -82,48 +81,29 @@ def main():
 
     if args.Functions == "extract":
         print("Extracting data...")
-        print(extract(args.url, args.file_name))
+        print(extract(args.url, args.file_path))
 
-    elif args.Functions == "transform_n_load":
+    elif args.Functions == "transform":
         print("Transforming and loading data...")
-        print(
-            transform_n_load(
-                args.local_dataset,
-                args.database_name,
-                args.new_data_tables,
-                args.new_lookup_tables,
-                args.column_attributes,
-                args.column_map,
-            )
-        )
+        print(transform(args.dataset, args.db_name, args.table_name))
 
-    elif args.Functions == "read_data":
-        print(read_data(args.database_name, args.table_name, args.data_id))
+    elif args.Functions == "query_create":
+        print(query_create(args.database, args.table, args.colnames, args.values))
 
-    elif args.Functions == "read_all_data":
-        print(read_all_data(args.database_name, args.table_name))
+    elif args.Functions == "query_read":
+        print(query_read(args.dataset, args.table))
 
-    elif args.Functions == "save_data":
-        print(
-            save_data(
-                args.database_name,
-                args.table_name,
-                args.row,
-            )
-        )
+    elif args.Functions == "query_update":
+        print(query_update(args.database_name, args.table, args.column, args.new_value))
 
-    elif args.action == "update_data":
-        print(
-            update_data(
-                args.database_name, args.table_name, args.data_id, args.things_to_update
-            )
-        )
+    elif args.action == "query_delete":
+        print(query_delete(args.database, args.table, args.Incident_Key))
 
-    elif args.Functions == "delete_data":
-        print(delete_data(args.database_name, args.table_name, args.data_id))
+    elif args.Functions == "query_1":
+        print(query_1(args.database, args.table))
 
-    elif args.Functions == "get_table_columns":
-        print(get_table_columns(args.database_name, args.table_name))
+    elif args.Functions == "query_2":
+        print(query_2(args.database, args.table))
 
     else:
         print(f"Unknown function: {args.action}")
