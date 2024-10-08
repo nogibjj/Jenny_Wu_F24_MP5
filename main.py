@@ -63,4 +63,3 @@ query_delete(
 
 query_1(database="nypd_shooting.db", table="nypd_shooting")
 query_2(database="nypd_shooting.db", table="nypd_shooting")
-
